@@ -1,1 +1,79 @@
+---
+title: "cm03 Inclass Exercises"
+author: "Sahil Jain"
+date: '2018-03-05'
+output: html_document
+---
+```{r include=FALSE}
+library(tidyverse)
+library(knitr)
+```
+
+## 3.1 Exercise 1: Mean at X=0
+
+1. Answer= 2.7 because it is in the middle of the data at x=0
+
+2.
+```{r message=FALSE, warning=FALSE}
+set.seed(87)
+dat <- tibble(x = c(rnorm(100), rnorm(100)+5)-3,
+              y = sin(x^2/5)/x + rnorm(200)/10 + exp(1))
+kable(head(dat))
+k=10
+r=5
+dat$d <- abs(dat$x)
+dat<-arrange(dat,d)
+dat.knn <- dat %>% top_n(k)
+(knn.pred <- mean(dat.knn$y))
+dat.loess <- dat %>% filter(d<=r)
+(loess.pred <- mean(dat.loess$y))
+```
+
+
+3. If we choose r=0.01 then we will have a null subset(no data in the subset) and we cannot make a prediction
+
+4. If we choose very large values of the hyperparameter, our subset will be huge and the prediction will not be accurate. It will contain values that are not a good representation of the predictors. If we have a lot of data, variance will be small. But the bias will be very high.
+If we take a very small value of k or r, we will have high variability in the predictions but accurate predictions because of small dataset.
+
+## 3.2 Exercise 2: Regression Curve
+
+```{r message=FALSE, warning=FALSE}
+xgrid <- seq(-5, 4, length.out=1000)
+kNN_estimates <- map_dbl(xgrid, function(x){
+    ## YOUR CODE HERE FOR kNN
+    ## Note: The variable "x" here is a single value along the grid.
+    ## Hint1: Extend your code for kNN from the previous exercise.
+    ## Hint2: Say you store the prediction in the variable "yhat".
+    ##         Then in a new line of code, write: return(yhat)
+    k=5
+    dat$d <- abs(x-dat$x)
+    dat<-arrange(dat,d)
+    dat.knn <- dat %>% top_n(k)
+    knn.pred <- mean(dat.knn$y)
+    return (knn.pred)
+})
+loess_estimates <- map_dbl(xgrid, function(x){
+    ## YOUR CODE HERE FOR LOESS
+    ## Note: The variable "x" here is a single value along the grid.
+    ## Hint1: Extend your code for loess from the previous exercise.
+    ## Hint2: Say you store the prediction in the variable "yhat".
+    ##         Then in a new line of code, write: return(yhat)
+    r=0.5
+    dat$d <- abs(x-dat$x)
+    dat.loess <- dat %>% filter(d<=r)
+    loess.pred <- mean(dat.loess$y)
+    return (loess.pred)
+})
+est <- tibble(x=xgrid, kNN=kNN_estimates, loess=loess_estimates) %>% 
+    gather(key="method", value="estimate", kNN, loess)
+ggplot() +
+    geom_point(data=dat, mapping=aes(x,y)) +
+    geom_line(data=est, 
+              mapping=aes(x,estimate, group=method, colour=method)) +
+    theme_bw()
+```
+
+kNN is over fitting and more random.
+
+
 
