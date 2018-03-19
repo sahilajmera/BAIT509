@@ -1,0 +1,43 @@
+---
+title: "cm07 Inclass Exercises"
+author: "Sahil Jain"
+date: '2018-03-19'
+output: html_document
+---
+
+#### 1.Bagging is a special case of random forests under which case?
+Bagging is a special case of random forests when all the predictors are sampled, i.e. m=p 
+where,
+m= number of sampled predictors
+p= total number of predictors
+
+#### 2.What are the hyperparameters we can control for random forests?
+The depth of the tree
+The number of tress
+The number of predictors you sample
+
+####Suppose you have the following paired data of (x,y): (1,2), (1,5), (2,0). Which of the following are valid bootstrapped data sets? Why/why not?
+#### a. (1,0), (1,2), (1,5)
+Not valid
+(1,0) does not exist in the dataset
+
+#### b. (1,2), (2,0)
+Not valid
+The number of pairs should be 3
+
+#### c. (1,2), (1,2), (1,5)
+Valid
+
+#### For each of the above valid bootstapped data sets, which observations are out-of-bag (OOB)?
+For c. Out-of-bag(OOB) observations= (2,0)
+
+#### 3.You make a random forest consisting of four trees. You obtain a new observation of predictors, and would like to predict the response. What would your prediction be in the following cases?
+
+#### Regression: your trees make the following four predictions: 1,1,3,3.
+Prediction would be the average of all predictions
+(1+1+3+3)/4 = 2
+
+#### Classification: your trees make the following four predictions: “A”, “A”, “B”, “C”.
+Prediction would be the mode of all the predictions
+"A"
+
