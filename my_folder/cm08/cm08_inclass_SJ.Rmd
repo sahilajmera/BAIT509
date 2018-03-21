@@ -1,0 +1,41 @@
+---
+title: "cm08 Inclass Exercises"
+author: "Sahil Jain (95938394)"
+date: '2018-03-21'
+output:
+  html_document:
+    df_print: paged
+---
+
+For (1) and (2) below, you're choosing between two candidates to hire. Discuss the pros and cons of choosing one candidate over the other in the following situations.
+
+1. Both are predicted to have the same productivity score of 75, but have the following probabilistic forecasts.
+
+<img src="cm08-beyond_mean_mode_files/figure-html/unnamed-chunk-17-1.png" style="display: block; margin: auto;" />
+
+__Answer__:<br>
+* Pros- Candidate A has a more certain productivity around 75 and low variance. For hiring it is better to hire such candidates for whom we know the productivity for certain because it is less risky. The max productivity of Candidate B is higher than that of Candidate A. There is slight chance that Candidate B will work with productivity>80 but zwero chance that Candidate A will work with productivity>80
+<br>
+* Cons- The max productivity for Candidate A is only 77(approx.). Candidate B has very high variance of productivity. The Candidate may work with productivity<70 on some days. There is high uncertainity in the productivity of Candidate B.
+<br>
+<br>
+2. Two "non-overlapping" forecasts:
+
+<img src="cm08-beyond_mean_mode_files/figure-html/unnamed-chunk-18-1.png" style="display: block; margin: auto;" />
+
+__Answer__:<br>
+* Pros- Candidate A has more certain productivity around 60 and low variance. Candidate B has productivity (around 80) than Candidate A. But Candidate B will always work with more productivity than Candidate A. The decicion is clear- hire Candidate B.
+<br>
+* Cons- The max productivity of Candidate A (approx 63) is less than the min productivity of Candidate B(approx. 72). Candidate B has high variance of productivity. There is more uncertainity in the productivity of Candidate B.
+<br>
+<br>
+3. You've formed a probabilist forecast for a particular value of the predictors, displayed below as a density. You then collect test data for that same value of the predictor, indicated as the points below the density. What is the problem with the probabilistic forecast?
+
+<img src="cm08-beyond_mean_mode_files/figure-html/unnamed-chunk-19-1.png" style="display: block; margin: auto;" />
+
+__Answer__: The probabilistic forecast is biased. It is usually under prediciting. <br>
+One way to correct this could be reduce the window size.
+
+<br>
+<br>
+
