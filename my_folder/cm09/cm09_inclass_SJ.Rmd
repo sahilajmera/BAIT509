@@ -1,1 +1,63 @@
+---
+title: "cm09 Inclass Exercises"
+author: "Sahil Jain (95938494)"
+date: '2018-03-26'
+---
 
+Consider the following data, decision boundary, and margin boundaries.
+
+```{r echo=FALSE, fig.align="center", fig.height=5, fig.width=5, message=FALSE, warning=FALSE}
+library(tidyverse)
+set.seed(501)
+tibble(x1 = c(rpois(10,5), 15-rpois(10,5)),
+       x2 = c(rpois(10,5), 15-rpois(10,5)),
+       y  = rep(LETTERS[1:2], each=10)) %>% 
+    group_by(x1, x2) %>% 
+    summarise(y=unique(y)) %>% 
+    ggplot(aes(x1,x2)) +
+    geom_point(aes(shape=y, colour=y)) +
+    geom_text(aes(label=1:18), vjust=-0.5) +
+    geom_vline(xintercept=5.5, alpha=0.5, linetype="dashed") +
+    geom_vline(xintercept=7.5, alpha=0.5) +
+    geom_vline(xintercept=9.5, alpha=0.5, linetype="dashed") +
+    theme_bw() +
+    theme(axis.title.y = element_text(angle=0, vjust=0.5)) +
+    coord_equal() +
+    scale_x_continuous(breaks=1:10*2)
+```
+
+__1. Construct the decision rule according to this classification boundary. How would you classify a new observation that has $x_1=6$ and $x_2=10$?__
+
+We classify "A" whenever
+$$ x_1  < 7.5 $$
+and "B" whenever
+$$ x_1 > 7.5 $$
+
+__2. What size is the margin here?__<br>
+
+Margin width is 2.<br>
+<br>
+
+__3. Which observations receive a penalty? Which observations are the support vectors?__<br>
+
+Observations 6,7,8,9 and 10 would receive a penalty. These are also the support vectors.<br>
+<br>
+
+__4. What is the total penalty here?__ <br>
+
+Penalty for observation 6: 0.25<br>
+Penalty for observation 7: 0.25<br>
+Penalty for observation 8: 1.25<br>
+Penalty for observation 9: 1.75<br>
+Penalty for observation 10: 2.25<br>
+Total: 5.75
+<br>
+
+__5. Can I choose a bigger margin if my total allowable penalty is 6?__<br>
+Yes, we can choose s slightly bigger margin.<br>
+<br>
+
+__6. Are the data separable? If so, what are the support vectors?__<br>
+Yes.<br>
+We can draw a diagonal. If we start increasing the margins on either side of the decision boundary, we would hit 4,8 and 9 which would be are support vectors would thus be 4,8, and 9.<br>
+<br>
